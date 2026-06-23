@@ -1,126 +1,254 @@
 # 🧠 Machine Psychology Analysis Pipeline
 ### 12-Section Automated Behavioral Phenotyping System
 
-A comprehensive **12-section automated analysis pipeline** for studying identity-reactive behaviors in Large Language Models. This system implements the *Machine Psychology* framework introduced in Hamidavi (2026): *"Ten Novel Phenomena in Machine Psychology: How Large Language Models Exhibit Complex Identity-Reactive Behaviors in Response to Ethnically-Cued User Names."*
+<p align="justify">
+A comprehensive <strong>12-section automated analysis pipeline</strong> for studying identity-reactive behaviors in Large Language Models. This system implements the <em>Machine Psychology</em> framework introduced in Hamidavi (2026): <em>"Ten Novel Phenomena in Machine Psychology: How Large Language Models Exhibit Complex Identity-Reactive Behaviors in Response to Ethnically-Cued User Names."</em>
+</p>
 
-The pipeline processes experimental data from **135 controlled prompts** across:
-*   **3 Frontier LLMs:** ChatGPT-5.4, Claude 4.6 Sonnet, Gemini 3.1 Pro
-*   **3 Ethnically-Cued User Names:** Jake Thompson, Tyrone Williams, Reza Moradi
-*   **3 Linguistic Registers:** Formal, Informal, Moderate
-*   **5 Adversarial Scenario Domains:** Cultural Food, Childcare Trust, Lost Wallet Ethics, Refugee Stereotyping, Airport Profiling
+<p align="justify">
+The pipeline processes experimental data from <strong>135 controlled prompts</strong> across:
+</p>
+
+- **3 Frontier LLMs:** ChatGPT-5.4, Claude 4.6 Sonnet, Gemini 3.1 Pro
+- **3 Ethnically-Cued User Names:** Jake Thompson, Tyrone Williams, Reza Moradi
+- **3 Linguistic Registers:** Formal, Informal, Moderate
+- **5 Adversarial Scenario Domains:** Cultural Food, Childcare Trust, Lost Wallet Ethics, Refugee Stereotyping, Airport Profiling
 
 ---
 
 ## 📊 Pipeline Architecture
 
-| Section | Title | Purpose |
-| :--- | :--- | :--- |
-| **1** | **Environment Setup** | Initialize environment, imports, global constants, and color schemes. |
-| **2** | **JSON Upload & Parsing** | Load, validate, and verify structural integrity of experimental data. |
-| **3** | **Response Classification** | Classify responses by language, refusal status, and type. |
-| **4** | **Feature Engineering** | Extract 136 structured behavioral features from response texts. |
-| **5** | **Semantic Embedding** | Generate vector representations (384-dim) for similarity analysis. |
-| **6** | **Identity-Reactive Phenotyping** | Quantify and analyze the 10 core *Machine Psychology* phenomena. |
-| **7** | **Alignment Signature Fingerprinting** | Characterize each model's unique behavioral signature. |
-| **8** | **Resistance & Acceptance Analysis** | Deep-dive into how models accept or resist user premises (130 regex patterns). |
-| **9** | **Statistical Testing** | Comprehensive validation via ANOVA, Chi-Square, Regression, Bootstrapping. |
-| **10** | **Clustering & Visualization** | Unsupervised learning (K-Means, HDBSCAN) and 9 publication-quality figures. |
-| **11** | **Advanced Visualization** | Interactive Sankey, Network Graphs, and Summary Dashboard. |
-| **12** | **Report Generation** | Package results into a downloadable HTML report, JSON summary, and ZIP archive. |
+<table align="center">
+  <thead>
+    <tr style="background-color: #2c3e50; color: #ffffff;">
+      <th style="text-align: center; padding: 10px; border: 2px solid #34495e;">Section</th>
+      <th style="text-align: center; padding: 10px; border: 2px solid #34495e;">Title</th>
+      <th style="text-align: left; padding: 10px; border: 2px solid #34495e;">Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background-color: #ecf0f1;">
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>1</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Environment Setup</strong></td>
+      <td style="padding: 8px; border: 1px solid #bdc3c7;">Initialize environment, imports, global constants, and color schemes.</td>
+    </tr>
+    <tr style="background-color: #ffffff;">
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>2</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>JSON Upload & Parsing</strong></td>
+      <td style="padding: 8px; border: 1px solid #bdc3c7;">Load, validate, and verify structural integrity of experimental data.</td>
+    </tr>
+    <tr style="background-color: #ecf0f1;">
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>3</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Response Classification</strong></td>
+      <td style="padding: 8px; border: 1px solid #bdc3c7;">Classify responses by language, refusal status, and type.</td>
+    </tr>
+    <tr style="background-color: #ffffff;">
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>4</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Feature Engineering</strong></td>
+      <td style="padding: 8px; border: 1px solid #bdc3c7;">Extract 136 structured behavioral features from response texts.</td>
+    </tr>
+    <tr style="background-color: #ecf0f1;">
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>5</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Semantic Embedding</strong></td>
+      <td style="padding: 8px; border: 1px solid #bdc3c7;">Generate vector representations (384-dim) for similarity analysis.</td>
+    </tr>
+    <tr style="background-color: #ffffff;">
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>6</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Identity-Reactive Phenotyping</strong></td>
+      <td style="padding: 8px; border: 1px solid #bdc3c7;">Quantify and analyze the 10 core <em>Machine Psychology</em> phenomena.</td>
+    </tr>
+    <tr style="background-color: #ecf0f1;">
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>7</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Alignment Signature Fingerprinting</strong></td>
+      <td style="padding: 8px; border: 1px solid #bdc3c7;">Characterize each model's unique behavioral signature.</td>
+    </tr>
+    <tr style="background-color: #ffffff;">
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>8</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Resistance & Acceptance Analysis</strong></td>
+      <td style="padding: 8px; border: 1px solid #bdc3c7;">Deep-dive into how models accept or resist user premises (130 regex patterns).</td>
+    </tr>
+    <tr style="background-color: #ecf0f1;">
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>9</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Statistical Testing</strong></td>
+      <td style="padding: 8px; border: 1px solid #bdc3c7;">Comprehensive validation via ANOVA, Chi-Square, Regression, Bootstrapping.</td>
+    </tr>
+    <tr style="background-color: #ffffff;">
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>10</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Clustering & Visualization</strong></td>
+      <td style="padding: 8px; border: 1px solid #bdc3c7;">Unsupervised learning (K-Means, HDBSCAN) and 9 publication-quality figures.</td>
+    </tr>
+    <tr style="background-color: #ecf0f1;">
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>11</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Advanced Visualization</strong></td>
+      <td style="padding: 8px; border: 1px solid #bdc3c7;">Interactive Sankey, Network Graphs, and Summary Dashboard.</td>
+    </tr>
+    <tr style="background-color: #ffffff;">
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>12</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Report Generation</strong></td>
+      <td style="padding: 8px; border: 1px solid #bdc3c7;">Package results into a downloadable HTML report, JSON summary, and ZIP archive.</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
 ## 🔬 Key Findings: Model Behavioral Signatures
 
-| Model | Signature Persona | Key Traits |
-| :--- | :--- | :--- |
-| **ChatGPT** | 🫂 **Global Empath** | Verbose emotional warmth, strongest PES (22.2%), no LM, indirect systemic acknowledgment. |
-| **Claude** | 📋 **Pragmatic Consultant** | Concise systemic empathy, accurate LM (6 instances), moral parsimony, highest systemic critique (8.9%). |
-| **Gemini** | 👔 **Corporate Consultant** | Highly formal, TA replaces PES, CME errors (8 instances), lowest empathy. |
+<table align="center">
+  <thead>
+    <tr style="background-color: #8e44ad; color: #ffffff;">
+      <th style="text-align: center; padding: 12px; border: 2px solid #732d91;">Model</th>
+      <th style="text-align: center; padding: 12px; border: 2px solid #732d91;">Signature Persona</th>
+      <th style="text-align: left; padding: 12px; border: 2px solid #732d91;">Key Traits</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background-color: #f5eef8;">
+      <td style="text-align: center; padding: 10px; border: 2px solid #d2b4de;"><strong>ChatGPT</strong></td>
+      <td style="text-align: center; padding: 10px; border: 2px solid #d2b4de;">🫂 <strong>Global Empath</strong></td>
+      <td style="padding: 10px; border: 2px solid #d2b4de;">Verbose emotional warmth, strongest PES (22.2%), no LM, indirect systemic acknowledgment.</td>
+    </tr>
+    <tr style="background-color: #ffffff;">
+      <td style="text-align: center; padding: 10px; border: 2px solid #d2b4de;"><strong>Claude</strong></td>
+      <td style="text-align: center; padding: 10px; border: 2px solid #d2b4de;">📋 <strong>Pragmatic Consultant</strong></td>
+      <td style="padding: 10px; border: 2px solid #d2b4de;">Concise systemic empathy, accurate LM (6 instances), moral parsimony, highest systemic critique (8.9%).</td>
+    </tr>
+    <tr style="background-color: #f5eef8;">
+      <td style="text-align: center; padding: 10px; border: 2px solid #d2b4de;"><strong>Gemini</strong></td>
+      <td style="text-align: center; padding: 10px; border: 2px solid #d2b4de;">👔 <strong>Corporate Consultant</strong></td>
+      <td style="padding: 10px; border: 2px solid #d2b4de;">Highly formal, TA replaces PES, CME errors (8 instances), lowest empathy.</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
 ## 📈 Phenomenon Prevalence & Statistical Significance
 
-| Phenomenon | ChatGPT | Claude | Gemini | Statistical Significance |
-| :--- | :---: | :---: | :---: | :--- |
-| **Cultural Boxing (CB)** | 13.3% | 2.2% | 8.9% | χ²=3.76, p=0.153 |
-| **Linguistic Mirroring (LM)** | 0% | 13.3% (6 accurate) | 17.8% (8 errors) | **χ²=8.29, p=0.016** |
-| **Cultural Misattribution Error (CME)** | 0 | 0 | 8 instances | **χ²=17.01, p<0.001** |
-| **Topic Avoidance (TA)** | 11.1% | 11.1% | 0% (auto) / 100% (manual) | — |
-| **Proactive Empathetic Shield (PES)** | 22.2% | 11.1% | 0% | χ²=0.42, p=0.813 |
-| **Default Empathetic Amplification (DEA)** | 0.600 | 0.444 | 0.244 | Kruskal-Wallis p=0.052 |
+<table align="center">
+  <thead>
+    <tr style="background-color: #c0392b; color: #ffffff;">
+      <th style="text-align: left; padding: 10px; border: 2px solid #922b21;">Phenomenon</th>
+      <th style="text-align: center; padding: 10px; border: 2px solid #922b21;">ChatGPT</th>
+      <th style="text-align: center; padding: 10px; border: 2px solid #922b21;">Claude</th>
+      <th style="text-align: center; padding: 10px; border: 2px solid #922b21;">Gemini</th>
+      <th style="text-align: center; padding: 10px; border: 2px solid #922b21;">Statistical Significance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background-color: #fdedec;">
+      <td style="padding: 8px; border: 1px solid #f1948a;"><strong>Cultural Boxing (CB)</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">13.3%</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">2.2%</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">8.9%</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">χ²=3.76, p=0.153</td>
+    </tr>
+    <tr style="background-color: #ffffff;">
+      <td style="padding: 8px; border: 1px solid #f1948a;"><strong>Linguistic Mirroring (LM)</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0%</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">13.3% (6 accurate)</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">17.8% (8 errors)</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;"><strong>χ²=8.29, p=0.016 ⭐</strong></td>
+    </tr>
+    <tr style="background-color: #fdedec;">
+      <td style="padding: 8px; border: 1px solid #f1948a;"><strong>Cultural Misattribution Error (CME)</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">8 instances</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;"><strong>χ²=17.01, p<0.001 ⭐⭐⭐</strong></td>
+    </tr>
+    <tr style="background-color: #ffffff;">
+      <td style="padding: 8px; border: 1px solid #f1948a;"><strong>Topic Avoidance (TA)</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">11.1%</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">11.1%</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0% (auto) / 100% (manual)</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">—</td>
+    </tr>
+    <tr style="background-color: #fdedec;">
+      <td style="padding: 8px; border: 1px solid #f1948a;"><strong>Proactive Empathetic Shield (PES)</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">22.2%</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">11.1%</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0%</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">χ²=0.42, p=0.813</td>
+    </tr>
+    <tr style="background-color: #ffffff;">
+      <td style="padding: 8px; border: 1px solid #f1948a;"><strong>Default Empathetic Amplification (DEA)</strong></td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0.600</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0.444</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0.244</td>
+      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">Kruskal-Wallis p=0.052</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
 ## 📦 Data Flow
-
-```text
 ┌─────────────────────────────────────────────────────────────────┐
-│                     DATA INPUT                                   │
-│  3 Experiment History JSONs  +  3 Codebook JSONs                │
+│ DATA INPUT │
+│ 3 Experiment History JSONs + 3 Codebook JSONs │
 └─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
+│
+▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 2: Upload, validate, verify (135 prompts × 6 files)    │
+│ SECTION 2: Upload, validate, verify (135 prompts × 6 files) │
 └─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
+│
+▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 3: Language detection, refusal classification          │
-│             → classified_responses.csv                           │
+│ SECTION 3: Language detection, refusal classification │
+│ → classified_responses.csv │
 └─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
+│
+▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 4: 136 features extracted (11 categories)              │
-│             → engineered_features.csv                           │
+│ SECTION 4: 136 features extracted (11 categories) │
+│ → engineered_features.csv │
 └─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
+│
+▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 5: Semantic embeddings (384-dim) + similarity analysis │
-│             → response_embeddings.npy                           │
+│ SECTION 5: Semantic embeddings (384-dim) + similarity analysis │
+│ → response_embeddings.npy │
 └─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
+│
+▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 6: 10 phenomena quantified + model phenotypes          │
-│             → phenotype_analysis.json                           │
+│ SECTION 6: 10 phenomena quantified + model phenotypes │
+│ → phenotype_analysis.json │
 └─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
+│
+▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 7: 3 alignment signatures fingerprinted                │
-│             → alignment_signatures.json                         │
+│ SECTION 7: 3 alignment signatures fingerprinted │
+│ → alignment_signatures.json │
 └─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
+│
+▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 8: 130 regex patterns for Resistance & Acceptance      │
-│             → engineered_features_enhanced.csv                  │
+│ SECTION 8: 130 regex patterns for Resistance & Acceptance │
+│ → engineered_features_enhanced.csv │
 └─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
+│
+▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 9: ANOVA, Chi-square, Regression, Bootstrap, Cohen's d │
-│             → statistical_tests.json                            │
+│ SECTION 9: ANOVA, Chi-square, Regression, Bootstrap, Cohen's d │
+│ → statistical_tests.json │
 └─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
+│
+▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 10: K-Means, HDBSCAN, Hierarchical clustering          │
-│              + t-SNE, UMAP, PCA visualization (9 figures)       │
+│ SECTION 10: K-Means, HDBSCAN, Hierarchical clustering │
+│ + t-SNE, UMAP, PCA visualization (9 figures) │
 └─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
+│
+▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 11: Sankey, Network, Heatmap, Dashboard (7 figures)    │
+│ SECTION 11: Sankey, Network, Heatmap, Dashboard (7 figures) │
 └─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
+│
+▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 12: HTML report + JSON summary + ZIP archive           │
-│             → report/index.html + machine_psychology_*.zip      │
+│ SECTION 12: HTML report + JSON summary + ZIP archive │
+│ → report/index.html + machine_psychology_*.zip │
 └─────────────────────────────────────────────────────────────────┘
