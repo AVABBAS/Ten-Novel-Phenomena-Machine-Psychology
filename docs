@@ -1,254 +1,430 @@
-# 🧠 Machine Psychology Analysis Pipeline
-### 12-Section Automated Behavioral Phenotyping System
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Machine Psychology · 12‑Section Behavioral Phenotyping Pipeline</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<p align="justify">
-A comprehensive <strong>12-section automated analysis pipeline</strong> for studying identity-reactive behaviors in Large Language Models. This system implements the <em>Machine Psychology</em> framework introduced in Hamidavi (2026): <em>"Ten Novel Phenomena in Machine Psychology: How Large Language Models Exhibit Complex Identity-Reactive Behaviors in Response to Ethnically-Cued User Names."</em>
-</p>
+    body {
+      background: #f5f7fb;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1e293b;
+      line-height: 1.5;
+      padding: 2rem 1.5rem;
+      display: flex;
+      justify-content: center;
+    }
 
-<p align="justify">
-The pipeline processes experimental data from <strong>135 controlled prompts</strong> across:
-</p>
+    .report-container {
+      max-width: 1300px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+      padding: 2.5rem 2.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.8rem;
+    }
 
-- **3 Frontier LLMs:** ChatGPT-5.4, Claude 4.6 Sonnet, Gemini 3.1 Pro
-- **3 Ethnically-Cued User Names:** Jake Thompson, Tyrone Williams, Reza Moradi
-- **3 Linguistic Registers:** Formal, Informal, Moderate
-- **5 Adversarial Scenario Domains:** Cultural Food, Childcare Trust, Lost Wallet Ethics, Refugee Stereotyping, Airport Profiling
+    /* Typography */
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #0f2b5c, #1e4b8c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
 
----
+    h2 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: #0b2b4f;
+      border-left: 6px solid #2d7ee7;
+      padding-left: 1.2rem;
+      margin-top: 0.4rem;
+    }
 
-## 📊 Pipeline Architecture
+    h3 {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #1e3a5f;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
-<table align="center">
-  <thead>
-    <tr style="background-color: #2c3e50; color: #ffffff;">
-      <th style="text-align: center; padding: 10px; border: 2px solid #34495e;">Section</th>
-      <th style="text-align: center; padding: 10px; border: 2px solid #34495e;">Title</th>
-      <th style="text-align: left; padding: 10px; border: 2px solid #34495e;">Purpose</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="background-color: #ecf0f1;">
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>1</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Environment Setup</strong></td>
-      <td style="padding: 8px; border: 1px solid #bdc3c7;">Initialize environment, imports, global constants, and color schemes.</td>
-    </tr>
-    <tr style="background-color: #ffffff;">
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>2</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>JSON Upload & Parsing</strong></td>
-      <td style="padding: 8px; border: 1px solid #bdc3c7;">Load, validate, and verify structural integrity of experimental data.</td>
-    </tr>
-    <tr style="background-color: #ecf0f1;">
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>3</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Response Classification</strong></td>
-      <td style="padding: 8px; border: 1px solid #bdc3c7;">Classify responses by language, refusal status, and type.</td>
-    </tr>
-    <tr style="background-color: #ffffff;">
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>4</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Feature Engineering</strong></td>
-      <td style="padding: 8px; border: 1px solid #bdc3c7;">Extract 136 structured behavioral features from response texts.</td>
-    </tr>
-    <tr style="background-color: #ecf0f1;">
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>5</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Semantic Embedding</strong></td>
-      <td style="padding: 8px; border: 1px solid #bdc3c7;">Generate vector representations (384-dim) for similarity analysis.</td>
-    </tr>
-    <tr style="background-color: #ffffff;">
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>6</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Identity-Reactive Phenotyping</strong></td>
-      <td style="padding: 8px; border: 1px solid #bdc3c7;">Quantify and analyze the 10 core <em>Machine Psychology</em> phenomena.</td>
-    </tr>
-    <tr style="background-color: #ecf0f1;">
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>7</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Alignment Signature Fingerprinting</strong></td>
-      <td style="padding: 8px; border: 1px solid #bdc3c7;">Characterize each model's unique behavioral signature.</td>
-    </tr>
-    <tr style="background-color: #ffffff;">
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>8</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Resistance & Acceptance Analysis</strong></td>
-      <td style="padding: 8px; border: 1px solid #bdc3c7;">Deep-dive into how models accept or resist user premises (130 regex patterns).</td>
-    </tr>
-    <tr style="background-color: #ecf0f1;">
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>9</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Statistical Testing</strong></td>
-      <td style="padding: 8px; border: 1px solid #bdc3c7;">Comprehensive validation via ANOVA, Chi-Square, Regression, Bootstrapping.</td>
-    </tr>
-    <tr style="background-color: #ffffff;">
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>10</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Clustering & Visualization</strong></td>
-      <td style="padding: 8px; border: 1px solid #bdc3c7;">Unsupervised learning (K-Means, HDBSCAN) and 9 publication-quality figures.</td>
-    </tr>
-    <tr style="background-color: #ecf0f1;">
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>11</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Advanced Visualization</strong></td>
-      <td style="padding: 8px; border: 1px solid #bdc3c7;">Interactive Sankey, Network Graphs, and Summary Dashboard.</td>
-    </tr>
-    <tr style="background-color: #ffffff;">
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>12</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #bdc3c7;"><strong>Report Generation</strong></td>
-      <td style="padding: 8px; border: 1px solid #bdc3c7;">Package results into a downloadable HTML report, JSON summary, and ZIP archive.</td>
-    </tr>
-  </tbody>
-</table>
+    .badge {
+      background: #e9eff7;
+      color: #154a8a;
+      padding: 0.2rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
 
----
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+    }
 
-## 🔬 Key Findings: Model Behavioral Signatures
+    .card {
+      background: #f9fbfd;
+      border: 1px solid #e9edf4;
+      border-radius: 1.5rem;
+      padding: 1.5rem 1.6rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      transition: all 0.2s ease;
+    }
 
-<table align="center">
-  <thead>
-    <tr style="background-color: #8e44ad; color: #ffffff;">
-      <th style="text-align: center; padding: 12px; border: 2px solid #732d91;">Model</th>
-      <th style="text-align: center; padding: 12px; border: 2px solid #732d91;">Signature Persona</th>
-      <th style="text-align: left; padding: 12px; border: 2px solid #732d91;">Key Traits</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="background-color: #f5eef8;">
-      <td style="text-align: center; padding: 10px; border: 2px solid #d2b4de;"><strong>ChatGPT</strong></td>
-      <td style="text-align: center; padding: 10px; border: 2px solid #d2b4de;">🫂 <strong>Global Empath</strong></td>
-      <td style="padding: 10px; border: 2px solid #d2b4de;">Verbose emotional warmth, strongest PES (22.2%), no LM, indirect systemic acknowledgment.</td>
-    </tr>
-    <tr style="background-color: #ffffff;">
-      <td style="text-align: center; padding: 10px; border: 2px solid #d2b4de;"><strong>Claude</strong></td>
-      <td style="text-align: center; padding: 10px; border: 2px solid #d2b4de;">📋 <strong>Pragmatic Consultant</strong></td>
-      <td style="padding: 10px; border: 2px solid #d2b4de;">Concise systemic empathy, accurate LM (6 instances), moral parsimony, highest systemic critique (8.9%).</td>
-    </tr>
-    <tr style="background-color: #f5eef8;">
-      <td style="text-align: center; padding: 10px; border: 2px solid #d2b4de;"><strong>Gemini</strong></td>
-      <td style="text-align: center; padding: 10px; border: 2px solid #d2b4de;">👔 <strong>Corporate Consultant</strong></td>
-      <td style="padding: 10px; border: 2px solid #d2b4de;">Highly formal, TA replaces PES, CME errors (8 instances), lowest empathy.</td>
-    </tr>
-  </tbody>
-</table>
+    .card:hover {
+      border-color: #bdd3f0;
+      box-shadow: 0 12px 22px rgba(20, 80, 160, 0.08);
+    }
 
----
+    .metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: space-between;
+      margin: 1.2rem 0 0.5rem;
+    }
 
-## 📈 Phenomenon Prevalence & Statistical Significance
+    .metric {
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1rem 1.4rem;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.03);
+      flex: 1 1 140px;
+      text-align: center;
+      border: 1px solid #eef2f8;
+    }
 
-<table align="center">
-  <thead>
-    <tr style="background-color: #c0392b; color: #ffffff;">
-      <th style="text-align: left; padding: 10px; border: 2px solid #922b21;">Phenomenon</th>
-      <th style="text-align: center; padding: 10px; border: 2px solid #922b21;">ChatGPT</th>
-      <th style="text-align: center; padding: 10px; border: 2px solid #922b21;">Claude</th>
-      <th style="text-align: center; padding: 10px; border: 2px solid #922b21;">Gemini</th>
-      <th style="text-align: center; padding: 10px; border: 2px solid #922b21;">Statistical Significance</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="background-color: #fdedec;">
-      <td style="padding: 8px; border: 1px solid #f1948a;"><strong>Cultural Boxing (CB)</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">13.3%</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">2.2%</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">8.9%</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">χ²=3.76, p=0.153</td>
-    </tr>
-    <tr style="background-color: #ffffff;">
-      <td style="padding: 8px; border: 1px solid #f1948a;"><strong>Linguistic Mirroring (LM)</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0%</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">13.3% (6 accurate)</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">17.8% (8 errors)</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;"><strong>χ²=8.29, p=0.016 ⭐</strong></td>
-    </tr>
-    <tr style="background-color: #fdedec;">
-      <td style="padding: 8px; border: 1px solid #f1948a;"><strong>Cultural Misattribution Error (CME)</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">8 instances</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;"><strong>χ²=17.01, p<0.001 ⭐⭐⭐</strong></td>
-    </tr>
-    <tr style="background-color: #ffffff;">
-      <td style="padding: 8px; border: 1px solid #f1948a;"><strong>Topic Avoidance (TA)</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">11.1%</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">11.1%</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0% (auto) / 100% (manual)</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">—</td>
-    </tr>
-    <tr style="background-color: #fdedec;">
-      <td style="padding: 8px; border: 1px solid #f1948a;"><strong>Proactive Empathetic Shield (PES)</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">22.2%</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">11.1%</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0%</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">χ²=0.42, p=0.813</td>
-    </tr>
-    <tr style="background-color: #ffffff;">
-      <td style="padding: 8px; border: 1px solid #f1948a;"><strong>Default Empathetic Amplification (DEA)</strong></td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0.600</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0.444</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">0.244</td>
-      <td style="text-align: center; padding: 8px; border: 1px solid #f1948a;">Kruskal-Wallis p=0.052</td>
-    </tr>
-  </tbody>
-</table>
+    .metric-value {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #0c3363;
+      line-height: 1.2;
+    }
 
----
+    .metric-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #526477;
+      font-weight: 600;
+    }
 
-## 📦 Data Flow
-┌─────────────────────────────────────────────────────────────────┐
-│ DATA INPUT │
-│ 3 Experiment History JSONs + 3 Codebook JSONs │
-└─────────────────────┬───────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ SECTION 2: Upload, validate, verify (135 prompts × 6 files) │
-└─────────────────────┬───────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ SECTION 3: Language detection, refusal classification │
-│ → classified_responses.csv │
-└─────────────────────┬───────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ SECTION 4: 136 features extracted (11 categories) │
-│ → engineered_features.csv │
-└─────────────────────┬───────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ SECTION 5: Semantic embeddings (384-dim) + similarity analysis │
-│ → response_embeddings.npy │
-└─────────────────────┬───────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ SECTION 6: 10 phenomena quantified + model phenotypes │
-│ → phenotype_analysis.json │
-└─────────────────────┬───────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ SECTION 7: 3 alignment signatures fingerprinted │
-│ → alignment_signatures.json │
-└─────────────────────┬───────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ SECTION 8: 130 regex patterns for Resistance & Acceptance │
-│ → engineered_features_enhanced.csv │
-└─────────────────────┬───────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ SECTION 9: ANOVA, Chi-square, Regression, Bootstrap, Cohen's d │
-│ → statistical_tests.json │
-└─────────────────────┬───────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ SECTION 10: K-Means, HDBSCAN, Hierarchical clustering │
-│ + t-SNE, UMAP, PCA visualization (9 figures) │
-└─────────────────────┬───────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ SECTION 11: Sankey, Network, Heatmap, Dashboard (7 figures) │
-└─────────────────────┬───────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ SECTION 12: HTML report + JSON summary + ZIP archive │
-│ → report/index.html + machine_psychology_*.zip │
-└─────────────────────────────────────────────────────────────────┘
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 1.2rem 0 0.5rem;
+    }
+
+    th {
+      text-align: left;
+      background: #f1f5fb;
+      padding: 0.8rem 0.9rem;
+      font-weight: 600;
+      color: #193b5e;
+      border-radius: 12px 12px 0 0;
+    }
+
+    td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid #e6ecf5;
+    }
+
+    .signature-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #eef3ff;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .flow-steps {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.3rem 0.8rem;
+      background: #f4f7fd;
+      padding: 1.4rem 1.6rem;
+      border-radius: 1.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #1b3857;
+      margin: 1.2rem 0;
+    }
+
+    .arrow {
+      color: #5f7d9c;
+      font-weight: 600;
+    }
+
+    hr {
+      border: 0.5px solid #dce4f0;
+      margin: 1.2rem 0;
+    }
+
+    .findings-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .findings-list li {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .findings-list i {
+      color: #2b6ed7;
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .figure-item {
+      background: #ffffff;
+      border: 1px solid #dfe6f0;
+      border-radius: 1rem;
+      padding: 0.7rem;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #25415d;
+    }
+
+    .figure-item i {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+      color: #3b6cb7;
+    }
+
+    .footer-note {
+      margin-top: 1rem;
+      color: #5d6f85;
+      font-size: 0.85rem;
+      text-align: center;
+      border-top: 1px solid #e2e9f3;
+      padding-top: 1.8rem;
+    }
+
+    @media (max-width: 650px) {
+      body {
+        padding: 0.8rem;
+      }
+      .report-container {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="report-container">
+    
+    <!-- Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+      <h1>
+        <i class="fas fa-brain" style="background: none; -webkit-text-fill-color: #1d4f91; font-size: 2.2rem;"></i> 
+        Machine Psychology Pipeline
+      </h1>
+      <span class="badge" style="font-size: 0.9rem;"><i class="far fa-calendar-alt"></i> 2026-06-24 · v2.1</span>
+    </div>
+    <p style="font-size: 1.1rem; color: #33475b; margin-top: -0.8rem;">
+      12‑Section Automated Behavioral Phenotyping System · Hamidavi (2026) framework
+    </p>
+
+    <!-- Dashboard metrics -->
+    <div class="metric-row">
+      <div class="metric"><div class="metric-value">135</div><div class="metric-label">Prompts</div></div>
+      <div class="metric"><div class="metric-value">3</div><div class="metric-label">Frontier LLMs</div></div>
+      <div class="metric"><div class="metric-value">10</div><div class="metric-label">Phenomena</div></div>
+      <div class="metric"><div class="metric-value">136</div><div class="metric-label">Features</div></div>
+      <div class="metric"><div class="metric-value">16+</div><div class="metric-label">Figures</div></div>
+    </div>
+
+    <!-- Pipeline Architecture Overview -->
+    <div>
+      <h2><i class="fas fa-project-diagram"></i> Pipeline Architecture</h2>
+      <div class="flow-steps">
+        <span><strong>S1</strong> Setup</span> <span class="arrow">→</span>
+        <span><strong>S2</strong> JSON Parse</span> <span class="arrow">→</span>
+        <span><strong>S3</strong> Classify</span> <span class="arrow">→</span>
+        <span><strong>S4</strong> Features</span> <span class="arrow">→</span>
+        <span><strong>S5</strong> Embeddings</span> <span class="arrow">→</span>
+        <span><strong>S6</strong> Phenotyping</span> <span class="arrow">→</span>
+        <span><strong>S7</strong> Signatures</span> <span class="arrow">→</span>
+        <span><strong>S8</strong> Resist/Accept</span> <span class="arrow">→</span>
+        <span><strong>S9</strong> Statistics</span> <span class="arrow">→</span>
+        <span><strong>S10</strong> Clusters</span> <span class="arrow">→</span>
+        <span><strong>S11</strong> Advanced Viz</span> <span class="arrow">→</span>
+        <span><strong>S12</strong> Report</span>
+      </div>
+    </div>
+
+    <!-- Two column: Key signatures + phenomenon table -->
+    <div class="grid-2col">
+      <div class="card">
+        <h3><i class="fas fa-fingerprint"></i> Alignment Signatures</h3>
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.8rem;">
+          <div><span class="signature-chip"><i class="fas fa-globe-americas"></i> ChatGPT · Global Empath</span><br><small style="color:#3b4e66;">Warm, verbose, PES 22.2%, zero LM</small></div>
+          <div><span class="signature-chip"><i class="fas fa-clipboard-check"></i> Claude · Pragmatic Consultant</span><br><small style="color:#3b4e66;">Concise, systemic, 6 LM, highest critique 8.9%</small></div>
+          <div><span class="signature-chip"><i class="fas fa-building"></i> Gemini · Corporate Consultant</span><br><small style="color:#3b4e66;">Formal, TA dominant, CME 8 errors, low empathy</small></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-chart-pie"></i> Phenomenon Rates</h3>
+        <table>
+          <thead><tr><th>Phenomenon</th><th>ChatGPT</th><th>Claude</th><th>Gemini</th><th>Sig.</th></tr></thead>
+          <tbody>
+            <tr><td>Cultural Boxing</td><td>13.3%</td><td>2.2%</td><td>8.9%</td><td>p=0.153</td></tr>
+            <tr><td>Linguistic Mirroring</td><td>0%</td><td>13.3%</td><td>17.8%</td><td><strong>p=0.016</strong></td></tr>
+            <tr><td>CME</td><td>0</td><td>0</td><td>8 inst.</td><td><strong>p&lt;0.001</strong></td></tr>
+            <tr><td>Topic Avoidance</td><td>11.1%</td><td>11.1%</td><td>0% / 100%</td><td>—</td></tr>
+            <tr><td>PES</td><td>22.2%</td><td>11.1%</td><td>0%</td><td>p=0.813</td></tr>
+            <tr><td>DEA (mean)</td><td>0.600</td><td>0.444</td><td>0.244</td><td>p=0.052</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Feature engineering & semantic embedding -->
+    <div class="grid-2col">
+      <div class="card">
+        <h3><i class="fas fa-cogs"></i> Feature Engineering (S4)</h3>
+        <p style="margin: 0.6rem 0; font-size: 0.9rem;"><strong>136 features</strong> across 11 categories: Authority, Acceptance, Reasoning, Social Roles, Emotion, Dark Patterns, 10 phenomenon detectors, Stylistic, Domain, Persona, Model Signature.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem;">
+          <span class="badge">CB detector</span><span class="badge">DEA detector</span><span class="badge">PES detector</span>
+          <span class="badge">LM detector</span><span class="badge">CME tracker</span><span class="badge">130 regex patterns (S8)</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-vector-square"></i> Semantic Embedding (S5)</h3>
+        <p style="margin: 0.6rem 0;"><code>all-MiniLM-L6-v2</code> · 384‑dim · PCA 50d (94.4% var.)</p>
+        <ul style="margin-left: 1.2rem; color: #2c3e50; font-size: 0.9rem;">
+          <li>Domain strongest cluster (intra 0.530–0.688)</li>
+          <li>Gemini max cross-name distance Tyrone: 0.868</li>
+          <li>ChatGPT intra-model similarity 0.298</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Statistical highlights & clustering -->
+    <div class="grid-2col">
+      <div class="card">
+        <h3><i class="fas fa-calculator"></i> Statistical Validation (S9)</h3>
+        <div class="findings-list">
+          <li><i class="fas fa-check-circle"></i> <strong>CME χ²=17.01, Cramér's V=0.355</strong> (strongest model association)</li>
+          <li><i class="fas fa-check-circle"></i> LM↔CME correlation r=0.738, p&lt;0.001</li>
+          <li><i class="fas fa-check-circle"></i> Regression F1: TA=0.974, PES=0.947, CME=0.912</li>
+          <li><i class="fas fa-check-circle"></i> Bootstrap LM Gemini 17.8% [95% CI: 6.7–28.9%]</li>
+          <li><i class="fas fa-check-circle"></i> Cohen's d Gemini vs Claude paragraphs = -1.50</li>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-layer-group"></i> Clustering (S10)</h3>
+        <p><strong>K-Means K=6</strong> (Silhouette 0.392) · HDBSCAN 6 clusters, 0 noise</p>
+        <p style="margin-top: 0.6rem;"><span class="badge" style="background:#d4e2fc;">🔬 CME/LM cluster</span> 14 responses (Gemini 8 + Claude 6) emerged unsupervised.</p>
+        <div style="margin-top: 0.7rem; font-size:0.85rem;">
+          <i class="fas fa-chart-scatter"></i> t-SNE · UMAP · PCA projections · 9 figures
+        </div>
+      </div>
+    </div>
+
+    <!-- Advanced visualization gallery -->
+    <div>
+      <h2><i class="fas fa-images"></i> Advanced Visualizations (S10–S11)</h2>
+      <div class="figure-grid">
+        <div class="figure-item"><i class="fas fa-chart-pie"></i> scatter_pca.png</div>
+        <div class="figure-item"><i class="fas fa-chart-scatter"></i> scatter_tsne.png</div>
+        <div class="figure-item"><i class="fas fa-project-diagram"></i> scatter_umap.png</div>
+        <div class="figure-item"><i class="fas fa-chart-line"></i> clustering_metrics.png</div>
+        <div class="figure-item"><i class="fas fa-fire"></i> phenomenon_heatmap_model.png</div>
+        <div class="figure-item"><i class="fas fa-user-friends"></i> phenomenon_heatmap_persona.png</div>
+        <div class="figure-item"><i class="fas fa-chart-radar"></i> radar_chart_signatures.png</div>
+        <div class="figure-item"><i class="fas fa-stream"></i> sankey_phenomenon_flow.html</div>
+        <div class="figure-item"><i class="fas fa-circle-nodes"></i> network_phenomenon_cooccurrence.png</div>
+        <div class="figure-item"><i class="fas fa-th"></i> heatmap_feature_profile.png</div>
+        <div class="figure-item"><i class="fas fa-arrow-trend-up"></i> model_similarity_matrix.png</div>
+        <div class="figure-item"><i class="fas fa-border-all"></i> summary_dashboard.png</div>
+      </div>
+    </div>
+
+    <!-- Resistance & Acceptance deep dive -->
+    <div class="card" style="background: #f6f9ff;">
+      <h3><i class="fas fa-shield-alt"></i> Resistance & Acceptance Analysis (S8)</h3>
+      <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 0.8rem;">
+        <div><strong>130 new regex patterns</strong> (70 resistance + 60 acceptance)</div>
+        <div><span>ChatGPT A/R ratio 1.06</span> · <span>Claude A/R 0.59</span> · <span>Gemini×Tyrone 0.33</span></div>
+      </div>
+      <p style="margin-top: 0.6rem; font-size:0.9rem;">Claude×Reza lowest A/R (0.30) — maximum resistance to Middle Eastern name. Gemini CME-driven resistance.</p>
+    </div>
+
+    <!-- Data flow & key outputs -->
+    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 2; min-width: 280px;">
+        <h3><i class="fas fa-code-branch"></i> Data Flow</h3>
+        <div style="background: #f2f5fa; border-radius: 1.2rem; padding: 1.2rem; font-size:0.85rem; font-family: 'JetBrains Mono', monospace;">
+          JSONs → S2 validate → S3 classify (135×26) → S4 features (135×141) → S5 embeddings (384d) <br>
+          → S6 phenotype.json → S7 signatures → S8 enhanced → S9 stats → S10 clusters → S11 viz → S12 report.zip
+        </div>
+      </div>
+      <div style="flex: 1;">
+        <h3><i class="fas fa-file-archive"></i> Deliverable</h3>
+        <p style="margin-top:0.4rem;"><code>machine_psychology_analysis_[timestamp].zip</code><br>HTML report, JSON summary, 16+ figures, CSV datasets.</p>
+        <span class="badge" style="margin-top:0.4rem;"><i class="fas fa-download"></i> report/index.html</span>
+      </div>
+    </div>
+
+    <!-- Key results summary -->
+    <hr>
+    <div>
+      <h3 style="margin-bottom: 0.5rem;"><i class="fas fa-star"></i> Automated Pipeline Performance</h3>
+      <div class="metric-row" style="margin-top:0.2rem;">
+        <div class="metric"><span class="metric-value">89.5–97.4%</span><span class="metric-label">F1 phenomenon prediction</span></div>
+        <div class="metric"><span class="metric-value">13/35</span><span class="metric-label">features differentiate models (p&lt;0.05)</span></div>
+        <div class="metric"><span class="metric-value">6</span><span class="metric-label">clusters (K-Means/HDBSCAN)</span></div>
+        <div class="metric"><span class="metric-value">0.738</span><span class="metric-label">LM↔CME correlation</span></div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      <i class="far fa-copyright"></i> Machine Psychology Analysis Pipeline · Hamidavi (2026) · Ten Novel Phenomena in Machine Psychology.
+      <br>Jake Thompson · Tyrone Williams · Reza Moradi across ChatGPT-5.4, Claude 4.6 Sonnet, Gemini 3.1 Pro.
+    </div>
+  </div>
+</body>
+</html>
