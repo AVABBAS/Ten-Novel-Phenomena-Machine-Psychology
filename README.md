@@ -4,7 +4,6 @@
 
 <br>
 
-
 # Ten Novel Phenomena in Machine Psychology
 ## Overview This repository contains the analysis scripts and statistical pipelines for the paper "Ten Novel Phenomena in Machine Psychology: How Large Language Models Exhibit Complex Identity-Reactive Behaviors in Response to Ethnically-Cued User Names."
 ## Methodology & Data The study evaluates three frontier models (ChatGPT-5.4, Claude 4.6 Sonnet, and Gemini 3.1 Pro) using 135 controlled prompts distributed across 27 chat sessions. The independent variable was ethnically-cued user names, evaluated across five adversarial prompt domains.
