@@ -1,408 +1,430 @@
-Machine Psychology Analysis Pipeline — 12-Section Automated Behavioral Phenotyping System
-Overview
-A comprehensive 12-section automated analysis pipeline for studying identity-reactive behaviors in Large Language Models. This system implements the Machine Psychology framework introduced in Hamidavi (2026): "Ten Novel Phenomena in Machine Psychology: How Large Language Models Exhibit Complex Identity-Reactive Behaviors in Response to Ethnically-Cued User Names."
-
-The pipeline processes experimental data from 135 controlled prompts across 3 frontier LLMs (ChatGPT-5.4, Claude 4.6 Sonnet, Gemini 3.1 Pro), 3 ethnically-cued user names (Jake Thompson, Tyrone Williams, Reza Moradi), 3 linguistic registers (Formal, Informal, Moderate), and 5 adversarial scenario domains (Cultural Food, Childcare Trust, Lost Wallet Ethics, Refugee Stereotyping, Airport Profiling).
-
-Pipeline Architecture
-Section 1: Environment Setup
-Purpose: Initialize the complete analysis environment.
-
-Imports all required libraries (numpy, pandas, scipy, statsmodels, sklearn, sentence-transformers, matplotlib, seaborn, plotly, hdbscan)
-
-Configures directory structure (data/, output/, figures/)
-
-Defines global constants: 3 models, 3 personas, 3 registers, 5 domains, 10 phenomena
-
-Sets up color schemes for consistent visualization across all sections
-
-Initializes random seeds for reproducibility
-
-Key Output: Configured environment ready for data loading
-
-Section 2: JSON Upload & Parsing
-Purpose: Load, validate, and verify all experimental data files.
-
-Handles two-phase upload: (1) 3 experiment history JSONs, (2) 3 codebook JSONs
-
-Supports both Google Colab (files.upload()) and local environment loading
-
-Automatically identifies model from filename and metadata
-
-Validates structural integrity: checks for 9 chats, 45 prompts, all personas/registers/domains
-
-Detects empty responses and structural anomalies
-
-Performs cross-consistency checks between experiment histories and codebooks
-
-Generates a comprehensive verification report with PASSED/FAILED/WARNINGS status
-
-Key Output: section2_results dictionary containing all validated data
-
-Section 3: Response Classification
-Purpose: Classify every response by language, refusal status, and type.
-
-Language Detection: Identifies English, Persian, Mixed, or English-with-Persian-tokens using Unicode character ratio analysis
-
-Refusal Detection: Applies 12 regex patterns to detect content refusal, topic avoidance, and policy-based declines
-
-Response Type Classification: Categorizes responses into 6 types (narrative_advice, formatted_advice, refusal, cultural_accommodation, conversational_advice, structured_guide)
-
-Cultural Content Detection: Identifies Cultural Boxing (CB) and Linguistic Mirroring (LM) instances programmatically
-
-Key Output: output/classified_responses.csv (135 rows × 26 columns)
-
-Section 4: Feature Engineering
-Purpose: Extract 136 structured behavioral features from response texts.
-
-Builds on 6 base dictionary categories plus article-specific phenomenon detectors:
-
-Category	Features	Description
-Authority & Power	17	Directives, hedging, professional authority, personal authority, systemic critique
-Acceptance & Resistance	10	Validation, affirmation, emotional support, boundary setting, pushback, deflection
-Reasoning & Logic	9	Logical structures, evidence citation, cost-benefit analysis, moral reasoning
-Social Roles & Identity	11	Family roles, professional roles, cultural identity, power dynamics
-Emotion & Affect	9	Positive/negative emotion, empathy markers, emotional intensity
-Dark Patterns	8	Gaslighting, minimization, blame-shifting, false equivalence
-10 Phenomena Detectors	24	CB, DEA, PES, IES, LM, LSS, CLS, UP, CME, TA
-Structural & Stylistic	16	Length, formatting, structure type, sign-offs
-Domain-Specific	15	Content tailored to 5 experimental domains
-Persona-Specific	8	Name mentions, cultural affirmation, stereotype acknowledgment
-Model Signature	7	Global Empath, Pragmatic Consultant, Corporate Consultant indicators
-Key Output: output/engineered_features.csv (135 rows × 141 columns), output/feature_list.json
-
-Section 5: Semantic Embedding
-Purpose: Generate vector representations of all responses for similarity analysis.
-
-Uses all-MiniLM-L6-v2 (Sentence-Transformers) to produce 384-dimensional embeddings
-
-Computes pairwise cosine similarity matrix (135 × 135)
-
-Analyzes cross-name similarity: measures how differently models respond to different personas
-
-Analyzes cross-model similarity: measures how differently models respond to the same persona
-
-Computes reference similarity to 10 conceptual anchors (empathy, systemic, protective, procedural, etc.)
-
-Performs PCA reduction to 50 dimensions (94.4% variance explained)
-
-Calculates distance metrics between groups (cosine distance)
-
-Key Findings Embedded:
-
-Domain is the strongest clustering factor (intra-domain similarity: 0.530–0.688)
-
-Gemini shows maximum cross-name distance for Tyrone (0.868) — confirming CME
-
-Claude leads in empathy (0.157) and systemic critique (0.068) reference similarity
-
-ChatGPT is the most internally consistent model (intra-model similarity: 0.298)
-
-Key Output: output/response_embeddings.npy, output/embeddings_pca50.csv
-
-Section 6: Identity-Reactive Behavioral Phenotyping
-Purpose: Quantify and analyze the 10 Machine Psychology phenomena.
-
-Performs dedicated analysis for each phenomenon:
-
-CB (Cultural Boxing): Cross-tabulation of cultural inference by model × persona
-
-DEA (Default Empathetic Amplification): Empathy comparison across names with Kruskal-Wallis tests
-
-PES (Proactive Empathetic Shield): Anti-erasure and protection language analysis
-
-IES (Inverted Empathy Spectrum): Empathy ordering verification (Reza > Tyrone > Jake)
-
-LM (Linguistic Mirroring): Language switching detection with accuracy/error classification
-
-TA (Topic Avoidance): Profiling acknowledgment vs. procedural reframing in Airport domain
-
-CME (Cultural Misattribution Error): Misidentification tracking (all 8 cases: Gemini → Tyrone)
-
-UP (Unmarkedness Paradox): Asymmetric cultural markedness verification
-
-Cross-Phenomenon Correlations: Identifies LM↔CME (r=0.738), PES↔Systemic Critique (r=0.419)
-
-Model Behavioral Phenotypes: Generates comprehensive personality profiles
-
-Key Output: output/model_phenotypes.csv, output/phenotype_analysis.json
-
-Section 7: Alignment Signature Fingerprinting
-Purpose: Characterize each model's unique behavioral signature.
-
-Profiles three distinct alignment signatures:
-
-Model	Persona	Key Traits
-ChatGPT	🫂 Global Empath	Verbose emotional warmth, strongest PES (22.2%), no LM, indirect systemic acknowledgment
-Claude	📋 Pragmatic Consultant	Concise systemic empathy, accurate LM (6 instances), moral parsimony, highest systemic critique (8.9%)
-Gemini	👔 Corporate Consultant	Highly formal, TA replaces PES, CME errors (8 instances), lowest empathy
-Includes:
-
-Side-by-side comparison across 15 behavioral metrics
-
-PCA data preparation for visualization
-
-Statistical differentiation tests (3/12 features significantly differentiate models)
-
-Key Output: output/alignment_signatures.json, output/signature_comparison.csv
-
-Section 8: Resistance & Acceptance Analysis
-Purpose: Deep-dive into how models accept or resist user premises.
-
-Implements 7 enhanced resistance strategies with 10 regex patterns each (70 patterns):
-
-Boundary Setting, Pushback, Deflection, Normalization, Minimization, Proceduralization, Systemic Acknowledgment
-
-Implements 6 enhanced acceptance types with 10 regex patterns each (60 patterns):
-
-Emotional Validation, Practical Support, Empowerment, Cultural Affirmation, Contextual Normalization, Explicit Agreement
-
-Total: 130 new regex patterns for fine-grained behavioral analysis
-
-Computes Acceptance/Resistance ratios by model, persona, and domain
-
-Redetects TA and PES using enhanced patterns
-
-Key Findings:
-
-ChatGPT: Highest A/R ratio (1.06) — acceptance-oriented
-
-Claude: Lowest A/R ratio (0.59) — resistance-oriented (pushback + boundary setting)
-
-Claude × Reza: Lowest A/R (0.30) — maximum resistance to Middle Eastern name
-
-Gemini × Tyrone: Very low A/R (0.33) — CME-driven resistance
-
-Key Output: output/engineered_features_enhanced.csv, output/resistance_acceptance_analysis.json
-
-Section 9: Statistical Testing
-Purpose: Comprehensive statistical validation of all findings.
-
-Performs 8 categories of statistical analysis:
-
-Descriptive Statistics: Full distributional analysis of 16 key features by model
-
-ANOVA + t-tests: 35 features tested for between-model variation; 13 significant (p < 0.05)
-
-Chi-Square Tests: 11 categorical phenomena tested; 5 with significant model associations
-
-Name Effect Analysis: Kruskal-Wallis tests for differential treatment by user name
-
-Regression Analysis: Logistic/Linear regression predicting 5 phenomena from feature profiles
-
-Correlation Analysis: Comprehensive correlation matrix with strong correlation identification
-
-Effect Sizes (Cohen's d): Model and name comparison effect sizes
-
-Bootstrapping: 1,000-iteration bootstrap for 95% confidence intervals on 6 key metrics
-
-Key Statistical Findings:
-
-CME: χ²=17.01, p<0.001, Cramér's V=0.355 (strongest model association)
-
-LM↔CME: r=0.738, p<0.001 (strongest phenomenon correlation)
-
-Regression F1 scores: TA=0.974, PES=0.947, CME=0.912, CB=0.895, LM=0.847
-
-Bootstrap LM Gemini: 17.8% [95% CI: 6.7%, 28.9%]
-
-Cohen's d: Gemini vs Claude paragraphs = -1.50 (largest effect size)
-
-Key Output: output/statistical_tests.json
-
-Section 10: Clustering & Visualization
-Purpose: Unsupervised learning and visual exploration of behavioral patterns.
-
-Implements 4 clustering approaches:
-
-Method	Configuration	Result
-K-Means	K=2–6, Elbow + Silhouette analysis	K=6 optimal (Silhouette=0.392)
-Hierarchical	Ward, Complete, Average linkage	3 clusters (Complete: Silhouette=0.236)
-HDBSCAN	min_cluster_size=3–10	6 clusters, 0 noise points
-DBSCAN	eps tuning	Density-based validation
-Dimensionality reduction for visualization:
-
-t-SNE: 2D projection (perplexity=30)
-
-UMAP: 2D projection (n_neighbors=15)
-
-PCA: 2D projection (33.2% variance explained)
-
-Generates 9 publication-quality figures:
-
-scatter_pca.png — PCA colored by model, persona, and domain
-
-scatter_tsne.png — t-SNE colored by model, persona, and domain
-
-scatter_umap.png — UMAP colored by model, persona, and domain
-
-clustering_metrics.png — Elbow plot + Silhouette + Calinski-Harabasz
-
-phenomenon_heatmap_model.png — 10 phenomena intensity by model
-
-phenomenon_heatmap_persona.png — 10 phenomena intensity by persona
-
-radar_chart_signatures.png — 3-model behavioral signature comparison
-
-comparison_bar_charts.png — 6-panel comparative analysis
-
-phenomenon_distribution.png — Phenomenon rates across models
-
-Key Finding: A sixth cluster (14 responses) composed exclusively of Gemini (8) + Claude (6) — the CME/LM cluster — emerged from unsupervised analysis without human guidance.
-
-Key Output: 9 PNG figures in output/figures/
-
-Section 11: Advanced Visualization
-Purpose: Generate publication-ready visualizations for the manuscript.
-
-Creates 7 additional visualizations:
-
-Sankey Diagram (sankey_phenomenon_flow.html): Interactive flow showing Model → Phenomenon transitions
-
-Network Graph (network_phenomenon_cooccurrence.png): 11-node correlation network with weighted edges
-
-Feature Profile Heatmap (heatmap_feature_profile.png): 25 features × 9 model-persona combinations
-
-Flow Diagram (flow_register_phenomenon.png): Register → Model → Phenomenon expression patterns
-
-Model Similarity Matrix (model_similarity_matrix.png): Cosine similarity between model feature profiles
-
-Phenomenon Correlation Matrix (phenomenon_correlation_matrix.png): Publication-ready correlation heatmap
-
-Summary Dashboard (summary_dashboard.png): 6-panel comprehensive overview with key findings
-
-Key Output: 7 figures in output/figures/, total 16+ visualizations across Sections 10–11
-
-Section 12: Report Generation
-Purpose: Package all results into a professional, downloadable deliverable.
-
-Generates:
-
-HTML Report (report/index.html): Responsive, publication-quality report with:
-
-Key metrics dashboard (6 metric cards)
-
-Model comparison table (7 behavioral dimensions)
-
-Key findings summary (8 evidence-based findings)
-
-Phenomenon rate table
-
-Figure gallery (12 embedded visualizations)
-
-Print-friendly CSS
-
-JSON Summary (report/summary.json): Complete structured results with metadata, model comparisons, statistical highlights, and phenomenon definitions
-
-README (report/README.md): Directory structure documentation with key findings summary
-
-Data Export: Copies all CSV and JSON files to organized subdirectories:
-
-data/: 6 CSV data files
-
-figures/: 16+ PNG and HTML figures
-
-tables/: Statistical test results
-
-models/: Alignment signatures and clustering results
-
-ZIP Archive: Compresses the entire report into a downloadable machine_psychology_analysis_[timestamp].zip
-
-Key Output: Complete report directory + ZIP archive
-
-Data Flow
-text
-┌─────────────────────────────────────────────────────────────────┐
-│                     DATA INPUT                                   │
-│  3 Experiment History JSONs  +  3 Codebook JSONs                │
-└─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 2: Upload, validate, verify (135 prompts × 6 files)    │
-└─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 3: Language detection, refusal classification          │
-│             → classified_responses.csv                           │
-└─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 4: 136 features extracted (11 categories)              │
-│             → engineered_features.csv                           │
-└─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 5: Semantic embeddings (384-dim) + similarity analysis │
-│             → response_embeddings.npy                           │
-└─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 6: 10 phenomena quantified + model phenotypes          │
-│             → phenotype_analysis.json                           │
-└─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 7: 3 alignment signatures fingerprinted                │
-│             → alignment_signatures.json                         │
-└─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 8: 130 regex patterns for Resistance & Acceptance      │
-│             → engineered_features_enhanced.csv                  │
-└─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 9: ANOVA, Chi-square, Regression, Bootstrap, Cohen's d │
-│             → statistical_tests.json                            │
-└─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 10: K-Means, HDBSCAN, Hierarchical clustering          │
-│              + t-SNE, UMAP, PCA visualization (9 figures)       │
-└─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 11: Sankey, Network, Heatmap, Dashboard (7 figures)    │
-└─────────────────────┬───────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────────────┐
-│  SECTION 12: HTML report + JSON summary + ZIP archive           │
-│             → report/index.html + machine_psychology_*.zip      │
-└─────────────────────────────────────────────────────────────────┘
-Key Results
-Phenomenon	ChatGPT	Claude	Gemini	Statistical Significance
-Cultural Boxing	13.3%	2.2%	8.9%	χ²=3.76, p=0.153
-Linguistic Mirroring	0%	13.3% (6 accurate)	17.8% (8 errors)	χ²=8.29, p=0.016
-CME	0	0	8 instances	χ²=17.01, p<0.001
-Topic Avoidance	11.1%	11.1%	0% (auto) / 100% (manual)	—
-PES	22.2%	11.1%	0%	χ²=0.42, p=0.813
-DEA (mean)	0.600	0.444	0.244	Kruskal-Wallis p=0.052
-Model Signatures:
-
-ChatGPT: Global Empath — verbose, warm, emotionally protective, zero LM
-
-Claude: Pragmatic Consultant — concise, systemic, accurate Persian mirroring
-
-Gemini: Corporate Consultant — formal, procedural, CME errors, TA in airport domain
-
-Automated Pipeline Performance:
-
-136 engineered features across 11 behavioral categories
-
-89.5–97.4% cross-validated F1 scores for phenomenon prediction
-
-13/35 features significantly differentiate models (ANOVA p<0.05)
-
-K-Means and HDBSCAN independently recover 6 clusters including CME-specific cluster
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Machine Psychology · 12‑Section Behavioral Phenotyping Pipeline</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f7fb;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1e293b;
+      line-height: 1.5;
+      padding: 2rem 1.5rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .report-container {
+      max-width: 1300px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+      padding: 2.5rem 2.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.8rem;
+    }
+
+    /* Typography */
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #0f2b5c, #1e4b8c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: #0b2b4f;
+      border-left: 6px solid #2d7ee7;
+      padding-left: 1.2rem;
+      margin-top: 0.4rem;
+    }
+
+    h3 {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #1e3a5f;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      background: #e9eff7;
+      color: #154a8a;
+      padding: 0.2rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .card {
+      background: #f9fbfd;
+      border: 1px solid #e9edf4;
+      border-radius: 1.5rem;
+      padding: 1.5rem 1.6rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: #bdd3f0;
+      box-shadow: 0 12px 22px rgba(20, 80, 160, 0.08);
+    }
+
+    .metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: space-between;
+      margin: 1.2rem 0 0.5rem;
+    }
+
+    .metric {
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1rem 1.4rem;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.03);
+      flex: 1 1 140px;
+      text-align: center;
+      border: 1px solid #eef2f8;
+    }
+
+    .metric-value {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #0c3363;
+      line-height: 1.2;
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #526477;
+      font-weight: 600;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 1.2rem 0 0.5rem;
+    }
+
+    th {
+      text-align: left;
+      background: #f1f5fb;
+      padding: 0.8rem 0.9rem;
+      font-weight: 600;
+      color: #193b5e;
+      border-radius: 12px 12px 0 0;
+    }
+
+    td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid #e6ecf5;
+    }
+
+    .signature-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #eef3ff;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .flow-steps {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.3rem 0.8rem;
+      background: #f4f7fd;
+      padding: 1.4rem 1.6rem;
+      border-radius: 1.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #1b3857;
+      margin: 1.2rem 0;
+    }
+
+    .arrow {
+      color: #5f7d9c;
+      font-weight: 600;
+    }
+
+    hr {
+      border: 0.5px solid #dce4f0;
+      margin: 1.2rem 0;
+    }
+
+    .findings-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .findings-list li {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .findings-list i {
+      color: #2b6ed7;
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .figure-item {
+      background: #ffffff;
+      border: 1px solid #dfe6f0;
+      border-radius: 1rem;
+      padding: 0.7rem;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #25415d;
+    }
+
+    .figure-item i {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+      color: #3b6cb7;
+    }
+
+    .footer-note {
+      margin-top: 1rem;
+      color: #5d6f85;
+      font-size: 0.85rem;
+      text-align: center;
+      border-top: 1px solid #e2e9f3;
+      padding-top: 1.8rem;
+    }
+
+    @media (max-width: 650px) {
+      body {
+        padding: 0.8rem;
+      }
+      .report-container {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="report-container">
+    
+    <!-- Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+      <h1>
+        <i class="fas fa-brain" style="background: none; -webkit-text-fill-color: #1d4f91; font-size: 2.2rem;"></i> 
+        Machine Psychology Pipeline
+      </h1>
+      <span class="badge" style="font-size: 0.9rem;"><i class="far fa-calendar-alt"></i> 2026-06-24 · v2.1</span>
+    </div>
+    <p style="font-size: 1.1rem; color: #33475b; margin-top: -0.8rem;">
+      12‑Section Automated Behavioral Phenotyping System · Hamidavi (2026) framework
+    </p>
+
+    <!-- Dashboard metrics -->
+    <div class="metric-row">
+      <div class="metric"><div class="metric-value">135</div><div class="metric-label">Prompts</div></div>
+      <div class="metric"><div class="metric-value">3</div><div class="metric-label">Frontier LLMs</div></div>
+      <div class="metric"><div class="metric-value">10</div><div class="metric-label">Phenomena</div></div>
+      <div class="metric"><div class="metric-value">136</div><div class="metric-label">Features</div></div>
+      <div class="metric"><div class="metric-value">16+</div><div class="metric-label">Figures</div></div>
+    </div>
+
+    <!-- Pipeline Architecture Overview -->
+    <div>
+      <h2><i class="fas fa-project-diagram"></i> Pipeline Architecture</h2>
+      <div class="flow-steps">
+        <span><strong>S1</strong> Setup</span> <span class="arrow">→</span>
+        <span><strong>S2</strong> JSON Parse</span> <span class="arrow">→</span>
+        <span><strong>S3</strong> Classify</span> <span class="arrow">→</span>
+        <span><strong>S4</strong> Features</span> <span class="arrow">→</span>
+        <span><strong>S5</strong> Embeddings</span> <span class="arrow">→</span>
+        <span><strong>S6</strong> Phenotyping</span> <span class="arrow">→</span>
+        <span><strong>S7</strong> Signatures</span> <span class="arrow">→</span>
+        <span><strong>S8</strong> Resist/Accept</span> <span class="arrow">→</span>
+        <span><strong>S9</strong> Statistics</span> <span class="arrow">→</span>
+        <span><strong>S10</strong> Clusters</span> <span class="arrow">→</span>
+        <span><strong>S11</strong> Advanced Viz</span> <span class="arrow">→</span>
+        <span><strong>S12</strong> Report</span>
+      </div>
+    </div>
+
+    <!-- Two column: Key signatures + phenomenon table -->
+    <div class="grid-2col">
+      <div class="card">
+        <h3><i class="fas fa-fingerprint"></i> Alignment Signatures</h3>
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.8rem;">
+          <div><span class="signature-chip"><i class="fas fa-globe-americas"></i> ChatGPT · Global Empath</span><br><small style="color:#3b4e66;">Warm, verbose, PES 22.2%, zero LM</small></div>
+          <div><span class="signature-chip"><i class="fas fa-clipboard-check"></i> Claude · Pragmatic Consultant</span><br><small style="color:#3b4e66;">Concise, systemic, 6 LM, highest critique 8.9%</small></div>
+          <div><span class="signature-chip"><i class="fas fa-building"></i> Gemini · Corporate Consultant</span><br><small style="color:#3b4e66;">Formal, TA dominant, CME 8 errors, low empathy</small></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-chart-pie"></i> Phenomenon Rates</h3>
+        <table>
+          <thead><tr><th>Phenomenon</th><th>ChatGPT</th><th>Claude</th><th>Gemini</th><th>Sig.</th></tr></thead>
+          <tbody>
+            <tr><td>Cultural Boxing</td><td>13.3%</td><td>2.2%</td><td>8.9%</td><td>p=0.153</td></tr>
+            <tr><td>Linguistic Mirroring</td><td>0%</td><td>13.3%</td><td>17.8%</td><td><strong>p=0.016</strong></td></tr>
+            <tr><td>CME</td><td>0</td><td>0</td><td>8 inst.</td><td><strong>p&lt;0.001</strong></td></tr>
+            <tr><td>Topic Avoidance</td><td>11.1%</td><td>11.1%</td><td>0% / 100%</td><td>—</td></tr>
+            <tr><td>PES</td><td>22.2%</td><td>11.1%</td><td>0%</td><td>p=0.813</td></tr>
+            <tr><td>DEA (mean)</td><td>0.600</td><td>0.444</td><td>0.244</td><td>p=0.052</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Feature engineering & semantic embedding -->
+    <div class="grid-2col">
+      <div class="card">
+        <h3><i class="fas fa-cogs"></i> Feature Engineering (S4)</h3>
+        <p style="margin: 0.6rem 0; font-size: 0.9rem;"><strong>136 features</strong> across 11 categories: Authority, Acceptance, Reasoning, Social Roles, Emotion, Dark Patterns, 10 phenomenon detectors, Stylistic, Domain, Persona, Model Signature.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem;">
+          <span class="badge">CB detector</span><span class="badge">DEA detector</span><span class="badge">PES detector</span>
+          <span class="badge">LM detector</span><span class="badge">CME tracker</span><span class="badge">130 regex patterns (S8)</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-vector-square"></i> Semantic Embedding (S5)</h3>
+        <p style="margin: 0.6rem 0;"><code>all-MiniLM-L6-v2</code> · 384‑dim · PCA 50d (94.4% var.)</p>
+        <ul style="margin-left: 1.2rem; color: #2c3e50; font-size: 0.9rem;">
+          <li>Domain strongest cluster (intra 0.530–0.688)</li>
+          <li>Gemini max cross-name distance Tyrone: 0.868</li>
+          <li>ChatGPT intra-model similarity 0.298</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Statistical highlights & clustering -->
+    <div class="grid-2col">
+      <div class="card">
+        <h3><i class="fas fa-calculator"></i> Statistical Validation (S9)</h3>
+        <div class="findings-list">
+          <li><i class="fas fa-check-circle"></i> <strong>CME χ²=17.01, Cramér's V=0.355</strong> (strongest model association)</li>
+          <li><i class="fas fa-check-circle"></i> LM↔CME correlation r=0.738, p&lt;0.001</li>
+          <li><i class="fas fa-check-circle"></i> Regression F1: TA=0.974, PES=0.947, CME=0.912</li>
+          <li><i class="fas fa-check-circle"></i> Bootstrap LM Gemini 17.8% [95% CI: 6.7–28.9%]</li>
+          <li><i class="fas fa-check-circle"></i> Cohen's d Gemini vs Claude paragraphs = -1.50</li>
+        </div>
+      </div>
+      <div class="card">
+        <h3><i class="fas fa-layer-group"></i> Clustering (S10)</h3>
+        <p><strong>K-Means K=6</strong> (Silhouette 0.392) · HDBSCAN 6 clusters, 0 noise</p>
+        <p style="margin-top: 0.6rem;"><span class="badge" style="background:#d4e2fc;">🔬 CME/LM cluster</span> 14 responses (Gemini 8 + Claude 6) emerged unsupervised.</p>
+        <div style="margin-top: 0.7rem; font-size:0.85rem;">
+          <i class="fas fa-chart-scatter"></i> t-SNE · UMAP · PCA projections · 9 figures
+        </div>
+      </div>
+    </div>
+
+    <!-- Advanced visualization gallery -->
+    <div>
+      <h2><i class="fas fa-images"></i> Advanced Visualizations (S10–S11)</h2>
+      <div class="figure-grid">
+        <div class="figure-item"><i class="fas fa-chart-pie"></i> scatter_pca.png</div>
+        <div class="figure-item"><i class="fas fa-chart-scatter"></i> scatter_tsne.png</div>
+        <div class="figure-item"><i class="fas fa-project-diagram"></i> scatter_umap.png</div>
+        <div class="figure-item"><i class="fas fa-chart-line"></i> clustering_metrics.png</div>
+        <div class="figure-item"><i class="fas fa-fire"></i> phenomenon_heatmap_model.png</div>
+        <div class="figure-item"><i class="fas fa-user-friends"></i> phenomenon_heatmap_persona.png</div>
+        <div class="figure-item"><i class="fas fa-chart-radar"></i> radar_chart_signatures.png</div>
+        <div class="figure-item"><i class="fas fa-stream"></i> sankey_phenomenon_flow.html</div>
+        <div class="figure-item"><i class="fas fa-circle-nodes"></i> network_phenomenon_cooccurrence.png</div>
+        <div class="figure-item"><i class="fas fa-th"></i> heatmap_feature_profile.png</div>
+        <div class="figure-item"><i class="fas fa-arrow-trend-up"></i> model_similarity_matrix.png</div>
+        <div class="figure-item"><i class="fas fa-border-all"></i> summary_dashboard.png</div>
+      </div>
+    </div>
+
+    <!-- Resistance & Acceptance deep dive -->
+    <div class="card" style="background: #f6f9ff;">
+      <h3><i class="fas fa-shield-alt"></i> Resistance & Acceptance Analysis (S8)</h3>
+      <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 0.8rem;">
+        <div><strong>130 new regex patterns</strong> (70 resistance + 60 acceptance)</div>
+        <div><span>ChatGPT A/R ratio 1.06</span> · <span>Claude A/R 0.59</span> · <span>Gemini×Tyrone 0.33</span></div>
+      </div>
+      <p style="margin-top: 0.6rem; font-size:0.9rem;">Claude×Reza lowest A/R (0.30) — maximum resistance to Middle Eastern name. Gemini CME-driven resistance.</p>
+    </div>
+
+    <!-- Data flow & key outputs -->
+    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 2; min-width: 280px;">
+        <h3><i class="fas fa-code-branch"></i> Data Flow</h3>
+        <div style="background: #f2f5fa; border-radius: 1.2rem; padding: 1.2rem; font-size:0.85rem; font-family: 'JetBrains Mono', monospace;">
+          JSONs → S2 validate → S3 classify (135×26) → S4 features (135×141) → S5 embeddings (384d) <br>
+          → S6 phenotype.json → S7 signatures → S8 enhanced → S9 stats → S10 clusters → S11 viz → S12 report.zip
+        </div>
+      </div>
+      <div style="flex: 1;">
+        <h3><i class="fas fa-file-archive"></i> Deliverable</h3>
+        <p style="margin-top:0.4rem;"><code>machine_psychology_analysis_[timestamp].zip</code><br>HTML report, JSON summary, 16+ figures, CSV datasets.</p>
+        <span class="badge" style="margin-top:0.4rem;"><i class="fas fa-download"></i> report/index.html</span>
+      </div>
+    </div>
+
+    <!-- Key results summary -->
+    <hr>
+    <div>
+      <h3 style="margin-bottom: 0.5rem;"><i class="fas fa-star"></i> Automated Pipeline Performance</h3>
+      <div class="metric-row" style="margin-top:0.2rem;">
+        <div class="metric"><span class="metric-value">89.5–97.4%</span><span class="metric-label">F1 phenomenon prediction</span></div>
+        <div class="metric"><span class="metric-value">13/35</span><span class="metric-label">features differentiate models (p&lt;0.05)</span></div>
+        <div class="metric"><span class="metric-value">6</span><span class="metric-label">clusters (K-Means/HDBSCAN)</span></div>
+        <div class="metric"><span class="metric-value">0.738</span><span class="metric-label">LM↔CME correlation</span></div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      <i class="far fa-copyright"></i> Machine Psychology Analysis Pipeline · Hamidavi (2026) · Ten Novel Phenomena in Machine Psychology.
+      <br>Jake Thompson · Tyrone Williams · Reza Moradi across ChatGPT-5.4, Claude 4.6 Sonnet, Gemini 3.1 Pro.
+    </div>
+  </div>
+</body>
+</html>
